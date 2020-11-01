@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DashboardService {
+export class WorldDashboardService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   bigChart() {
+
     return [{
       name: 'Asia',
       data: [502, 635, 809, 947, 1402, 3634, 5268]
@@ -61,5 +63,26 @@ export class DashboardService {
       name: 'Other',
       y: 2.61
     }];
+  }
+
+  getProcessedDataForBigChart()
+  {
+    //USA,Russia,China,UK,Germany,India
+    const url =  `https://disease.sh/v3/covid-19/historical/USA%2CRussia%2CChina%2CUK%2CGermany%2CIndia?lastdays=all`;
+    return this.http.get(url);
+  }
+
+  getWorldProcessDataForBigChart()
+  {
+    //World Cases and Deaths data
+    const url =  `https://disease.sh/v3/covid-19/historical/all?lastdays=all`;
+    return this.http.get(url);
+  }
+
+  getWorldTableData()
+  {
+    //World all data
+    const url =  `https://disease.sh/v3/covid-19/countries`;
+    return this.http.get(url);
   }
 }

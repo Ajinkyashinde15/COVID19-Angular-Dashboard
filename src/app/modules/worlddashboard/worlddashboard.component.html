@@ -1,5 +1,21 @@
-<div>
-    <app-widget-area [data]="bigChart"></app-widget-area>
+<div class="container">
+  <div class="row">
+    <div *ngIf="isallWorldChartCasesDataAvailable">
+      <app-twoseries-area [series1]="coronaCasesBigChartApiData" [series2]="coronadDeathsBigChartApiData" [title]="chartCasesAndDeathsTitle"></app-twoseries-area>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <div *ngIf="isWorldChartCasesDataAvailable">
+        <app-widget-area [data]="coronacasesBigChart" [title]="chartCasesTitle"></app-widget-area>
+      </div>
+    </div>
+    <div class="col-6">
+      <div *ngIf="isWorldChartCasesDataAvailable">
+        <app-widget-area [data]="coronaDeathsBigChart" [title]="chartDeathTitle"></app-widget-area>
+      </div>
+    </div>
+    </div>
 </div>
 
 <br>
