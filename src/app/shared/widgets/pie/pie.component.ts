@@ -13,6 +13,7 @@ export class PieComponent implements OnInit {
   chartOptions = {};
 
   @Input() data = [];
+  @Input() pieTitle ="";
 
   constructor() { }
 
@@ -25,10 +26,10 @@ export class PieComponent implements OnInit {
         type: 'pie'
       },
       title: {
-        text: 'RANDOM DATA'
+        text: this.pieTitle
       },
       tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        pointFormat: '{series.name}: <b>{point.y}</b>'
       },
       plotOptions: {
         pie: {
@@ -47,7 +48,7 @@ export class PieComponent implements OnInit {
         enabled: false
       },
       series: [{
-        name: 'Brands',
+        name: 'Value',
         colorByPoint: true,
         data: this.data
       }]

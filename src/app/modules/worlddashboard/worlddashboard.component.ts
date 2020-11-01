@@ -2,34 +2,21 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { WorldDashboardService } from '../worlddashboard.service';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+export interface WorldCoronaTableElement
+{
+  country: string;
+  flag: string;
+  cases: string;
+  todaycases: string;
+  deaths: string;
+  todaydeaths: string;
+  recovered: string;
+  todayrecovered: string;
+  active: string;
+  casesPerOneMillion: string;
+  deathsPerOneMillion: string;
+  activePerOneMillion: string;
 }
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-  { position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na' },
-  { position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg' },
-  { position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al' },
-  { position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si' },
-  { position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P' },
-  { position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S' },
-  { position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl' },
-  { position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar' },
-  { position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K' },
-  { position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca' },
-];
 
 @Component({
   selector: 'app-worlddashboard',
@@ -44,19 +31,26 @@ export class WorldDashboardComponent implements OnInit {
   coronaDeathsBigChart = [];
   cards = [];
   pieChart = [];
+  TABLE_ELEMENT_DATA: WorldCoronaTableElement[] = [];
+  coronadworldPieApiData = [];
   _worldDashboardService : any;
   isWorldChartCasesDataAvailable:boolean = false;
   isallWorldChartCasesDataAvailable:boolean = false;
+  isallWorldTableDataAvailable: boolean =false;
+  isallWorldPieDataAvailable: boolean =false;
+  coronaCasesWorldBigChartApiData=[];
+  coronadDeathsWorldBigChartApiData=[];
+  pieTitle:string ="";
+
   chartCasesTitle : any;
   chartDeathTitle : any;
   chartCasesAndDeathsBigChart1 = [];
   chartCasesAndDeathsBigChart2 = [];
   chartCasesAndDeathsTitle = "COVID 19 Cases / Deaths";
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-
-
+  displayedColumns: string[] = ['Flag','country', 'Total_Cases', 'Todays_Cases','Total_Deaths','Todays_Deaths','Total_Recovered',
+  'Todays_Recovered','Total_Active','Cases Per One Million','Deaths Per One Million','Active Per One Million'];
+  dataSource : MatTableDataSource<WorldCoronaTableElement>;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
@@ -68,12 +62,11 @@ export class WorldDashboardComponent implements OnInit {
 
     this.getCasesAndDeathCountriesData();
     this.getAllWorldData();
+    this.getWorldTableData();
+    this.getworldPieChartData();
 
-    //this.bigChart = this.worldDashboardService.bigChart();
     this.cards = this.worldDashboardService.cards();
-    this.pieChart = this.worldDashboardService.pieChart();
-
-    this.dataSource.paginator = this.paginator;
+  //  this.pieChart = this.worldDashboardService.pieChart();
   }
 
   getAllWorldData()
@@ -81,13 +74,13 @@ export class WorldDashboardComponent implements OnInit {
       this._worldDashboardService.getWorldProcessDataForBigChart()
       .subscribe((data) => {
 
-           this.coronaCasesBigChartApiData =
+           this.coronaCasesWorldBigChartApiData =
             [data.cases['1/31/20'],data.cases['2/28/20'],data.cases['3/31/20'],
             data.cases['4/30/20'],data.cases['5/31/20'],data.cases['6/30/20'],
             data.cases['7/31/20'],data.cases['8/31/20'],data.cases['9/30/20'],
             data.cases['10/31/20'],data.cases['11/30/20'],data.cases['12/31/20']];
 
-           this.coronadDeathsBigChartApiData =
+           this.coronadDeathsWorldBigChartApiData =
             [data.deaths['1/31/20'],data.deaths['2/28/20'],data.deaths['3/31/20'],
             data.deaths['4/30/20'],data.deaths['5/31/20'],data.deaths['6/30/20'],
             data.deaths['7/31/20'],data.deaths['8/31/20'],data.deaths['9/30/20'],
@@ -130,10 +123,62 @@ export class WorldDashboardComponent implements OnInit {
 
           this.coronaDeathsBigChart = this.coronadDeathsBigChartApiData;
           this.chartDeathTitle = "COVID-19 Deaths";
-
-          this.isWorldChartCasesDataAvailable =true;
         });
+        this.isWorldChartCasesDataAvailable =true;
       }, () => {
       });
   }
+
+  getWorldTableData()
+  {
+    this._worldDashboardService.getWorldTableData()
+    .subscribe((data) => {
+      data.forEach(element => {
+
+        let tempData = {
+          "country": element.country,
+          "flag": element.countryInfo.flag,
+          "cases": element.cases,
+          "todaycases": element.todayCases,
+          "deaths": element.deaths,
+          "todaydeaths": element.todayDeaths,
+          "recovered": element.recovered,
+          "todayrecovered": element.todayRecovered,
+          "active": element.active,
+          "casesPerOneMillion": element.casesPerOneMillion,
+          "deathsPerOneMillion": element.deathsPerOneMillion,
+          "activePerOneMillion": element.activePerOneMillion,
+        };
+
+        this.TABLE_ELEMENT_DATA.push(tempData);
+        this.dataSource = new MatTableDataSource<WorldCoronaTableElement>(this.TABLE_ELEMENT_DATA);
+        this.dataSource.paginator = this.paginator;
+
+      });
+      this.isallWorldTableDataAvailable =true;
+    }, () => {
+    });
+  }
+
+  getworldPieChartData()
+  {
+    this._worldDashboardService.getworldPieChartData()
+    .subscribe((data) => {
+      data.forEach(element => {
+
+        let tempData = {
+          "name":element.continent,
+          "y":element.cases,
+          "sliced": element.continent == 'Asia' ? true : false,
+          "selected": element.continent == 'Asia' ? true : false,
+        };
+
+        this.coronadworldPieApiData.push(tempData);
+        this.pieTitle ="Continent Corona Case";
+      });
+      this.isallWorldPieDataAvailable =true;
+    }, () => {
+    });
+  }
+
 }
