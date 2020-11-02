@@ -20,8 +20,6 @@ export class AreaComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log(this.data);
-
     this.chartOptions = {
       chart: {
         type: 'line'

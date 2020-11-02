@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { WorldDashboardService } from '../worlddashboard.service';
-import { MatTableDataSource, MatPaginator } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { DatePipe } from '@angular/common';
 
 export interface WorldCoronaTableElement
 {
@@ -34,27 +35,36 @@ export class WorldDashboardComponent implements OnInit {
   TABLE_ELEMENT_DATA: WorldCoronaTableElement[] = [];
   coronadworldPieApiData = [];
   _worldDashboardService : any;
+  coronaCasesWorldBigChartApiData=[];
+  coronadDeathsWorldBigChartApiData=[];
+  chartCasesAndDeathsBigChart1 = [];
+  chartCasesAndDeathsBigChart2 = [];
+  _worldAreaCardDataApiforCases = [];
+  _worldAreaCardDataApiforDeaths = [];
+
+  _worldAreaCardTotalCases: any;
+  _worldAreaCardTotalDeaths: any;
+  _percentageCases : any;
+  _percentageDeaths : any;
+
+  chartCasesAndDeathsTitle = "COVID 19 Cases / Deaths";
+  pieTitle:string ="";
+  chartCasesTitle : any;
+  chartDeathTitle : any;
+
   isWorldChartCasesDataAvailable:boolean = false;
   isallWorldChartCasesDataAvailable:boolean = false;
   isallWorldTableDataAvailable: boolean =false;
   isallWorldPieDataAvailable: boolean =false;
-  coronaCasesWorldBigChartApiData=[];
-  coronadDeathsWorldBigChartApiData=[];
-  pieTitle:string ="";
-
-  chartCasesTitle : any;
-  chartDeathTitle : any;
-  chartCasesAndDeathsBigChart1 = [];
-  chartCasesAndDeathsBigChart2 = [];
-  chartCasesAndDeathsTitle = "COVID 19 Cases / Deaths";
 
   displayedColumns: string[] = ['Flag','country', 'Total_Cases', 'Todays_Cases','Total_Deaths','Todays_Deaths','Total_Recovered',
   'Todays_Recovered','Total_Active','Cases Per One Million','Deaths Per One Million','Active Per One Million'];
   dataSource : MatTableDataSource<WorldCoronaTableElement>;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, null) sort: MatSort;
 
-  constructor(private worldDashboardService: WorldDashboardService) {
+  constructor(private worldDashboardService: WorldDashboardService, private datePipe: DatePipe) {
     this._worldDashboardService = worldDashboardService
   }
 
@@ -66,7 +76,9 @@ export class WorldDashboardComponent implements OnInit {
     this.getworldPieChartData();
 
     this.cards = this.worldDashboardService.cards();
-  //  this.pieChart = this.worldDashboardService.pieChart();
+  }
+
+  ngAfterViewInit() {
   }
 
   getAllWorldData()
@@ -85,6 +97,31 @@ export class WorldDashboardComponent implements OnInit {
             data.deaths['4/30/20'],data.deaths['5/31/20'],data.deaths['6/30/20'],
             data.deaths['7/31/20'],data.deaths['8/31/20'],data.deaths['9/30/20'],
             data.deaths['10/31/20'],data.deaths['11/30/20'],data.deaths['12/31/20']];
+
+            //Logic For Calcuate Area Card
+
+            let todayDate = new Date();
+            let tempDate = new Date();
+
+            for(let i=6; i>1; i--)
+            {
+              tempDate.setDate(todayDate.getDate() - (i*10));
+              this._worldAreaCardDataApiforCases.push(data.cases[''+this.datePipe.transform(tempDate,'M/d/yy')]);
+              tempDate = new Date();
+            }
+            this._worldAreaCardTotalCases = this._worldAreaCardDataApiforCases[4];
+            let differnce = this._worldAreaCardDataApiforCases[4] - this._worldAreaCardDataApiforCases[0] ;
+            this._percentageCases =Math.floor(Math.abs(differnce / this._worldAreaCardDataApiforCases[0]) * 100);
+
+            for(let i=6; i>1; i--)
+            {
+              tempDate.setDate(todayDate.getDate() - (i*10));
+              this._worldAreaCardDataApiforDeaths.push(data.deaths[''+this.datePipe.transform(tempDate,'M/d/yy')]);
+              tempDate = new Date();
+            }
+            this._worldAreaCardTotalDeaths = this._worldAreaCardDataApiforDeaths[4];
+            let differnce1 = this._worldAreaCardDataApiforDeaths[4] - this._worldAreaCardDataApiforDeaths[0] ;
+            this._percentageDeaths = Math.floor(Math.abs(differnce1 / this._worldAreaCardDataApiforDeaths[0]) * 100);
 
           this.isallWorldChartCasesDataAvailable =true;
 
@@ -153,11 +190,16 @@ export class WorldDashboardComponent implements OnInit {
         this.TABLE_ELEMENT_DATA.push(tempData);
         this.dataSource = new MatTableDataSource<WorldCoronaTableElement>(this.TABLE_ELEMENT_DATA);
         this.dataSource.paginator = this.paginator;
-
+        this.dataSource.sort = this.sort;
       });
       this.isallWorldTableDataAvailable =true;
     }, () => {
     });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   getworldPieChartData()
@@ -180,5 +222,4 @@ export class WorldDashboardComponent implements OnInit {
     }, () => {
     });
   }
-
 }

@@ -28,7 +28,7 @@ export class WorldDashboardService {
 
   getWorldTableData()
   {
-    //World all data
+    //World all data by conuntries
     const url =  `https://disease.sh/v3/covid-19/countries`;
     return this.http.get(url);
   }
@@ -39,4 +39,5 @@ export class WorldDashboardService {
     const url =  `https://disease.sh/v3/covid-19/continents`;
     return this.http.get(url);
   }
+
 }

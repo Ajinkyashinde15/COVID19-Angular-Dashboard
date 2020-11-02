@@ -4,6 +4,29 @@
   }
 }
 
+
 table {
+  border-collapse: collapse;
   width: 100%;
+}
+
+th {
+  /* row border */
+  border-bottom: 1px solid #808ac0;
+}
+
+td.mat-cell {
+  /* row padding */
+  padding: 5px 0;
+  border: none;
+}
+
+tr.mat-row {
+  /* row border */
+  border: 1px solid #808ac0;
+}
+
+tr.mat-header-row
+{
+  border: 1px solid #808ac0;
 }
