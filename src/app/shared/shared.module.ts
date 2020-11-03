@@ -5,7 +5,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 
 import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { AreaComponent } from './widgets/area/area.component';
 import { HighchartsChartModule } from 'highcharts-angular';
@@ -16,7 +15,6 @@ import { TwoseriesAreaComponent } from './widgets/twoseries-area/twoseries-area.
 @NgModule({
   declarations: [
     HeaderComponent,
-    FooterComponent,
     SidebarComponent,
     AreaComponent,
     CardComponent,
@@ -37,7 +35,6 @@ import { TwoseriesAreaComponent } from './widgets/twoseries-area/twoseries-area.
   ],
   exports: [
     HeaderComponent,
-    FooterComponent,
     SidebarComponent,
     AreaComponent,
     CardComponent,

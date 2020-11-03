@@ -47,7 +47,7 @@ export class WorldDashboardComponent implements OnInit {
   _percentageCases : any;
   _percentageDeaths : any;
 
-  chartCasesAndDeathsTitle = "COVID 19 Cases / Deaths";
+  chartCasesAndDeathsTitle = "COVID-19 Cases / Deaths";
   pieTitle:string ="";
   chartCasesTitle : any;
   chartDeathTitle : any;
