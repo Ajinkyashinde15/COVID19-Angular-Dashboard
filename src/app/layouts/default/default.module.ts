@@ -10,6 +10,7 @@ import { WorldDashboardService } from 'src/app/modules/worlddashboard.service';
 import { HttpClientModule } from '@angular/common/http';
 import { IndiadashboardComponent } from 'src/app/modules/indiadashboard/indiadashboard.component';
 import { MumbaidashboardComponent } from 'src/app/modules/mumbaidashboard/mumbaidashboard.component';
+import { IndiadashboardService } from 'src/app/modules/indiadashboard.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { MumbaidashboardComponent } from 'src/app/modules/mumbaidashboard/mumbai
   ],
   providers: [
     WorldDashboardService,
-    DatePipe
+    DatePipe,
+    IndiadashboardService
   ]
 })
 export class DefaultModule { }

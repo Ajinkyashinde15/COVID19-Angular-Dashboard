@@ -14,11 +14,12 @@ const routes: Routes = [{
   }, {
     path: 'indiadashboard',
     component: IndiadashboardComponent
+  }
   ,
   {
     path: 'mumbaidashboard',
     component: MumbaidashboardComponent
-  }}]
+  }]
 }];
 
 @NgModule({

@@ -30,7 +30,6 @@ export class WorldDashboardComponent implements OnInit {
   coronacasesBigChart = [];
   coronadDeathsBigChartApiData = [];
   coronaDeathsBigChart = [];
-  cards = [];
   pieChart = [];
   TABLE_ELEMENT_DATA: WorldCoronaTableElement[] = [];
   coronadworldPieApiData = [];
@@ -74,8 +73,6 @@ export class WorldDashboardComponent implements OnInit {
     this.getAllWorldData();
     this.getWorldTableData();
     this.getworldPieChartData();
-
-    this.cards = this.worldDashboardService.cards();
   }
 
   ngAfterViewInit() {
@@ -188,10 +185,11 @@ export class WorldDashboardComponent implements OnInit {
         };
 
         this.TABLE_ELEMENT_DATA.push(tempData);
-        this.dataSource = new MatTableDataSource<WorldCoronaTableElement>(this.TABLE_ELEMENT_DATA);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+
       });
+      this.dataSource = new MatTableDataSource<WorldCoronaTableElement>(this.TABLE_ELEMENT_DATA);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
       this.isallWorldTableDataAvailable =true;
     }, () => {
     });

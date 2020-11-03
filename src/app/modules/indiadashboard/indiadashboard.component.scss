@@ -1,0 +1,15 @@
+ table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.normalTable td {
+  border: 1px solid #323336;
+  text-align: left;
+  padding: 8px;
+}
+
+.normalTable tr:nth-child(even) {
+  background-color: #dddddd;
+}

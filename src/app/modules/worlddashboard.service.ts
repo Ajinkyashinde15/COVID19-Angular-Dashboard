@@ -8,10 +8,6 @@ export class WorldDashboardService {
 
   constructor(private http: HttpClient) { }
 
-  cards() {
-    return [71, 78, 39, 66];
-  }
-
   getProcessedDataForBigChart()
   {
     //USA,Russia,China,UK,Germany,India
