@@ -18,7 +18,6 @@ export class PieComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.data);
     this.chartOptions = {
       chart: {
         plotBackgroundColor: null,
@@ -49,7 +48,7 @@ export class PieComponent implements OnInit {
         enabled: false
       },
       series: [{
-        name: 'Value',
+        name: 'Cases',
         colorByPoint: true,
         data: this.data
       }]

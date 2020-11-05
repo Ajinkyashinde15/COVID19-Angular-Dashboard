@@ -20,4 +20,10 @@ export class IndiadashboardService {
    const url =  `https://disease.sh/v3/covid-19/gov/india`;
    return this.http.get(url);
   }
+  getCasesandDeathsSeriesData()
+  {
+     //Get Indian cases and deaths series data
+   const url =  `https://disease.sh/v3/covid-19/historical/India?lastdays=all`;
+   return this.http.get(url);
+  }
 }

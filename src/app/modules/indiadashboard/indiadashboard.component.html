@@ -43,6 +43,19 @@
               <td>Indias Population</td>
               <td>{{onlyIndiaApiData[0].population}}</td>
             </tr>
+            <tr>
+              <td>One Case Per People</td>
+              <td>{{onlyIndiaApiData[0].oneCasePerPeople}}</td>
+            </tr>
+            <tr>
+              <td>One Death Per People</td>
+              <td>{{onlyIndiaApiData[0].oneDeathPerPeople}}</td>
+            </tr>
+            <tr>
+              <td>One Test Per People</td>
+              <td>{{onlyIndiaApiData[0].oneTestPerPeople}}</td>
+            </tr>
+
           </table>
         </div>
       </div>
@@ -55,6 +68,16 @@
     </mat-card>
    </div>
 
+</div>
+<br>
+<br>
+
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+  <div fxFlex="100" class="mat-elevation-z8">
+  <div *ngIf="isIndiaTimeseriesApiDataAvaialable">
+    <app-twoseries-area [series1]="coronaCasesIndiaBigChartApiData" [series2]="coronadDeathsIndiaBigChartApiData" [title]="chartCasesAndDeathsTitle"></app-twoseries-area>
+  </div>
+  </div>
 </div>
 <br>
 <br>
@@ -124,3 +147,5 @@
 
   </div>
 </div>
+<br>
+<br>

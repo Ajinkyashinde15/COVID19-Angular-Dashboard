@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IndiadashboardService } from '../indiadashboard.service';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { DatePipe } from '@angular/common';
 
 export interface IndiaCoronaTableElement
@@ -34,9 +36,16 @@ export class IndiadashboardComponent implements OnInit {
   onlyIndiaApiData=[];
   coronaIndiadPieApiData=[];
   stateWiseIndiaApiData=[];
+  indiaTimeseriesApiData = [];
+  indiaTimeseriesApiDataTitle : any;
+  coronaCasesIndiaBigChartApiData =[];
+  coronadDeathsIndiaBigChartApiData =[];
+
+  isIndiaTimeseriesApiDataAvaialable :boolean = false;
   isallIndiaDataAvailable: boolean =false;
   isstateWiseIndiaDataAvailable: boolean =false;
-  pieTitle : "Indian State Corona Cases";
+  chartCasesAndDeathsTitle :any;
+  pieTitle : any;
 
   TABLE_ELEMENT_DATA: IndiaCoronaTableElement[] = [];
 
@@ -47,12 +56,36 @@ export class IndiadashboardComponent implements OnInit {
   ngOnInit() {
     this.getOnlyIndiaData();
     this.getIndiaStateWiseData();
-
+    this.getCasesandDeathsSeriesData();
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  getCasesandDeathsSeriesData()
+  {
+    this._indiaDashboardService.getCasesandDeathsSeriesData()
+    .subscribe((data) => {
+
+         this.coronaCasesIndiaBigChartApiData =
+          [data.timeline.cases['1/31/20'],data.timeline.cases['2/28/20'],data.timeline.cases['3/31/20'],
+          data.timeline.cases['4/30/20'],data.timeline.cases['5/31/20'],data.timeline.cases['6/30/20'],
+          data.timeline.cases['7/31/20'],data.timeline.cases['8/31/20'],data.timeline.cases['9/30/20'],
+          data.timeline.cases['10/31/20'],data.timeline.cases['11/30/20'],data.timeline.cases['12/31/20']];
+
+         this.coronadDeathsIndiaBigChartApiData =
+          [data.timeline.deaths['1/31/20'],data.timeline.deaths['2/28/20'],data.timeline.deaths['3/31/20'],
+          data.timeline.deaths['4/30/20'],data.timeline.deaths['5/31/20'],data.timeline.deaths['6/30/20'],
+          data.timeline.deaths['7/31/20'],data.timeline.deaths['8/31/20'],data.timeline.deaths['9/30/20'],
+          data.timeline.deaths['10/31/20'],data.timeline.deaths['11/30/20'],data.timeline.deaths['12/31/20']];
+
+        this.isIndiaTimeseriesApiDataAvaialable =true;
+        this.chartCasesAndDeathsTitle = "COVID-19 Cases / Deaths";
+    }, () => {
+    });
+
   }
 
   getOnlyIndiaData()
@@ -72,10 +105,14 @@ export class IndiadashboardComponent implements OnInit {
           "active": data.active,
           "tests": data.tests,
           "population": data.population,
+          "oneCasePerPeople": data.oneCasePerPeople,
+          "oneDeathPerPeople": data.oneDeathPerPeople,
+          "oneTestPerPeople": data.oneTestPerPeople,
         }
 
       );
       this.isallIndiaDataAvailable =true;
+      this.pieTitle = "Indian State Corona Cases";
     }, () => {
     });
   }

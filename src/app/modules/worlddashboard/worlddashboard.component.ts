@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { WorldDashboardService } from '../worlddashboard.service';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { DatePipe } from '@angular/common';
 
 export interface WorldCoronaTableElement
@@ -36,8 +38,6 @@ export class WorldDashboardComponent implements OnInit {
   _worldDashboardService : any;
   coronaCasesWorldBigChartApiData=[];
   coronadDeathsWorldBigChartApiData=[];
-  chartCasesAndDeathsBigChart1 = [];
-  chartCasesAndDeathsBigChart2 = [];
   _worldAreaCardDataApiforCases = [];
   _worldAreaCardDataApiforDeaths = [];
 
