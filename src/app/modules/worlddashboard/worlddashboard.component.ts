@@ -40,6 +40,7 @@ export class WorldDashboardComponent implements OnInit {
   coronadDeathsWorldBigChartApiData=[];
   _worldAreaCardDataApiforCases = [];
   _worldAreaCardDataApiforDeaths = [];
+  monthList = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
   _worldAreaCardTotalCases: any;
   _worldAreaCardTotalDeaths: any;
@@ -50,6 +51,7 @@ export class WorldDashboardComponent implements OnInit {
   pieTitle:string ="";
   chartCasesTitle : any;
   chartDeathTitle : any;
+  chartType : any = "areaspline";
 
   isWorldChartCasesDataAvailable:boolean = false;
   isallWorldChartCasesDataAvailable:boolean = false;

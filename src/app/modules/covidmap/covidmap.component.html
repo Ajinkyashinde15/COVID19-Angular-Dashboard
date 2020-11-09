@@ -1,11 +1,23 @@
+
 <div class="loader" *ngIf="isLoading"></div>
-<div [chart]="mapChart" *ngIf="!isLoading"></div>
-<div id="globalStats" *ngIf="!isLoading">
-  <h3>Global Statistics</h3>
-  <b>Total Active Cases</b> : {{ globalData[0]?.total_active_cases }} <br />
-  <b>Total Cases</b> : {{ globalData[0]?.total_cases }} <br />
-  <b>Total Deaths</b> : <span style="color: red;"> {{ globalData[0]?.total_deaths }} </span><br />
-  <b>Total New Cases Today</b> : &#8593; {{ globalData[0]?.total_new_cases_today }} <br />
-  <b>Total New Deaths Today</b> : <span style="color: red"> &#8593;
-    {{ globalData[0]?.total_new_deaths_today }}</span><br />
+<!-- <div [chart]="mapChart" *ngIf="!isLoading"></div> -->
+
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" class="mat-elevation-z8">
+  <div fxFlex="100">
+    <div class="flourish-embed flourish-map" data-src="story/225979"></div>
+  </div>
 </div>
+
+<!-- <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" class="mat-elevation-z8">
+  <div fxFlex="100">
+      <div id="globalStats" *ngIf="!isLoading">
+        <h3>Global Statistics</h3>
+        <b>Total Active Cases</b> : {{ globalData[0]?.total_active_cases }} <br />
+        <b>Total Cases</b> : {{ globalData[0]?.total_cases }} <br />
+        <b>Total Deaths</b> : <span style="color: red;"> {{ globalData[0]?.total_deaths }} </span><br />
+        <b>Total New Cases Today</b> : &#8593; {{ globalData[0]?.total_new_cases_today }} <br />
+        <b>Total New Deaths Today</b> : <span style="color: red"> &#8593;
+          {{ globalData[0]?.total_new_deaths_today }}</span><br />
+      </div>
+  </div>
+</div> -->

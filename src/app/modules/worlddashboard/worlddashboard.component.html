@@ -13,7 +13,7 @@
   <div fxFlex="50">
     <div class="mat-elevation-z8">
       <div *ngIf="isWorldChartCasesDataAvailable">
-        <app-widget-area [data]="coronacasesBigChart" [title]="chartCasesTitle"></app-widget-area>
+        <app-widget-area [chartType]="chartType" [data]="coronacasesBigChart" [title]="chartCasesTitle" [categories]="monthList"></app-widget-area>
       </div>
     </div>
   </div>
@@ -21,7 +21,7 @@
   <div fxFlex="50">
     <div class="mat-elevation-z8">
       <div *ngIf="isWorldChartCasesDataAvailable">
-        <app-widget-area [data]="coronaDeathsBigChart" [title]="chartDeathTitle"></app-widget-area>
+        <app-widget-area [chartType]="chartType" [data]="coronaDeathsBigChart" [title]="chartDeathTitle" [categories]="monthList"></app-widget-area>
       </div>
     </div>
   </div>

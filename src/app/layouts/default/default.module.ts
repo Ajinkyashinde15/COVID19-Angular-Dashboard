@@ -19,6 +19,8 @@ import { IndiadashboardComponent } from 'src/app/modules/indiadashboard/indiadas
 import { MumbaidashboardComponent } from 'src/app/modules/mumbaidashboard/mumbaidashboard.component';
 import { IndiadashboardService } from 'src/app/modules/indiadashboard.service';
 import { CovidmapComponent } from 'src/app/modules/covidmap/covidmap.component';
+import { ContactComponent } from 'src/app/modules/contact/contact.component';
+import { CoronaforcastComponent } from 'src/app/modules/coronaforcast/coronaforcast.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { CovidmapComponent } from 'src/app/modules/covidmap/covidmap.component';
     IndiadashboardComponent,
     MumbaidashboardComponent,
     CovidmapComponent,
+    CoronaforcastComponent,
+    ContactComponent,
   ],
   imports: [
     CommonModule,

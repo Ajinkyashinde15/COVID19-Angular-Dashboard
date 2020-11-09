@@ -13,6 +13,8 @@ export class AreaComponent implements OnInit {
   chartOptions: {};
   @Input() data: any = [];
   @Input() title: any;
+  @Input() categories: any = [];
+  @Input() chartType : any;
 
   Highcharts = Highcharts;
 
@@ -22,7 +24,7 @@ export class AreaComponent implements OnInit {
 
     this.chartOptions = {
       chart: {
-        type: 'line'
+        type: this.chartType
       },
       title: {
         text: this.title
@@ -45,7 +47,7 @@ export class AreaComponent implements OnInit {
         }
       },
       xAxis:{
-        categories:["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        categories: this.categories,
       },
       series: this.data,
     };

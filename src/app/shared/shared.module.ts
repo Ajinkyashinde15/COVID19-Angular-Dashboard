@@ -15,6 +15,14 @@ import { AreaComponent } from './widgets/area/area.component';
 import { CardComponent } from './widgets/card/card.component';
 import { PieComponent } from './widgets/pie/pie.component';
 import { TwoseriesAreaComponent } from './widgets/twoseries-area/twoseries-area.component';
+import { ChartModule, HIGHCHARTS_MODULES } from 'angular-highcharts';
+import highmaps from '../../../node_modules/highcharts/modules/map.src';
+import { MapChart } from 'angular-highcharts';
+import { HighchartsChartModule } from 'highcharts-angular';
+
+export function highchartsModules() {
+  return [highmaps];
+}
 
 @NgModule({
   declarations: [
@@ -23,7 +31,7 @@ import { TwoseriesAreaComponent } from './widgets/twoseries-area/twoseries-area.
     AreaComponent,
     CardComponent,
     PieComponent,
-    TwoseriesAreaComponent
+    TwoseriesAreaComponent,
   ],
   imports: [
     CommonModule,
@@ -34,7 +42,9 @@ import { TwoseriesAreaComponent } from './widgets/twoseries-area/twoseries-area.
     FlexLayoutModule,
     MatMenuModule,
     MatListModule,
-    RouterModule
+    RouterModule,
+    ChartModule,
+    HighchartsChartModule
   ],
   exports: [
     HeaderComponent,
@@ -43,6 +53,7 @@ import { TwoseriesAreaComponent } from './widgets/twoseries-area/twoseries-area.
     CardComponent,
     PieComponent,
     TwoseriesAreaComponent
-  ]
+  ],
+  providers: [{ provide: HIGHCHARTS_MODULES, useFactory: highchartsModules }, MapChart],
 })
 export class SharedModule { }

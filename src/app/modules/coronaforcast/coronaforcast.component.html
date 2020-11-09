@@ -1,0 +1,24 @@
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" class="mat-elevation-z8">
+
+  <div fxFlex="100" *ngIf="isForcastDataAvailable">
+    <div class="mat-elevation-z8">
+      <div *ngIf="isForcastDataAvailable">
+        <app-widget-area [chartType]="chartType" [data]="forcastCases" [title]="chartTitle" [categories]="forcastDate"></app-widget-area>
+      </div>
+    </div>
+   </div>
+</div>
+<br>
+<br>
+
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" class="mat-elevation-z8">
+
+  <div fxFlex="100" *ngIf="">
+     <!-- <mat-card  class="mat-elevation-z8">
+      <app-widget-pie [data]="coronaMHPieApiData" [pieTitle]="pieTitle"></app-widget-pie>
+    </mat-card> -->
+   </div>
+
+</div>
+<br>
+<br>

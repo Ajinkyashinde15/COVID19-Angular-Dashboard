@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MapChart } from 'angular-highcharts';
 import { HttpClient } from '@angular/common/http';
 import { forkJoin, of } from 'rxjs';
 import { catchError, delay } from 'rxjs/operators';
 import { TheVirusTracker } from '../../shared/thevirustracker.model'
+import { MapChart } from 'angular-highcharts';
 
 var Highcharts = require('highcharts/highmaps'),
   map = require('@highcharts/map-collection/custom/world.geo.json');
@@ -23,52 +23,52 @@ export class CovidmapComponent implements OnInit {
   constructor(private http: HttpClient, public mapChart: MapChart) { }
 
   ngOnInit() {
-    map.features.forEach(element => {
-      this.arrayOfHttp.push(
-        this.http.get<TheVirusTracker>(
-          `https://disease.sh/v3/covid-19/countries/${element.id}?yesterday=true&twoDaysAgo=true&strict=true`
-        )
-          .pipe(catchError(error => of(error)))
-      );
-    });
+    // map.features.forEach(element => {
+    //   this.arrayOfHttp.push(
+    //     this.http.get<TheVirusTracker>(
+    //       `https://disease.sh/v3/covid-19/countries/${element.id}?yesterday=true&twoDaysAgo=true&strict=true`
+    //     )
+    //       .pipe(catchError(error => of(error)))
+    //   );
+    // });
 
-    forkJoin(this.arrayOfHttp).subscribe(results => {
+    // forkJoin(this.arrayOfHttp).subscribe(results => {
 
-      let tempData = [];
-      tempData = results;
+    //   let tempData = [];
+    //   tempData = results;
 
-      for(let i=0;i<tempData.length;i++)
-      {
-        //console.log(tempData[i].countryInfo._id);
+    //   for(let i=0;i<tempData.length;i++)
+    //   {
+    //     //console.log(tempData[i].countryInfo._id);
 
-        if (tempData[i].countryInfo) {
-          this.chartData.push({
-            code3: tempData[i].countryInfo.iso3,
-            name: tempData[i].country,
-            value: tempData[i].cases,
-            total_cases: tempData[i].cases,
-            total_active_cases: tempData[i].active,
-            total_deaths: tempData[i].deaths,
-            total_recovered: tempData[i].recovered,
-            total_new_cases_today: tempData[i].todayCases,
-            total_new_deaths_today: tempData[i].todayDeaths
-          });
-        }
-      }
-      this.prepapareChat();
-    });
+    //     if (tempData[i].countryInfo) {
+    //       this.chartData.push({
+    //         code3: tempData[i].countryInfo.iso3,
+    //         name: tempData[i].country,
+    //         value: tempData[i].cases,
+    //         total_cases: tempData[i].cases,
+    //         total_active_cases: tempData[i].active,
+    //         total_deaths: tempData[i].deaths,
+    //         total_recovered: tempData[i].recovered,
+    //         total_new_cases_today: tempData[i].todayCases,
+    //         total_new_deaths_today: tempData[i].todayDeaths
+    //       });
+    //     }
+    //   }
+    //   this.prepapareChat();
+    // });
 
-    this.http
-      .get<TheVirusTracker>("https://disease.sh/v3/covid-19/all?yesterday=true&twoDaysAgo=true&allowNull=true")
-      .subscribe(data => {
-        this.globalData.push({
-          total_active_cases: data["active"],
-          total_cases: data["cases"],
-          total_deaths: data["deaths"],
-          total_new_cases_today: data["todayCases"],
-          total_new_deaths_today: data["todayDeaths"]
-        });
-      });
+    // this.http
+    //   .get<TheVirusTracker>("https://disease.sh/v3/covid-19/all?yesterday=true&twoDaysAgo=true&allowNull=true")
+    //   .subscribe(data => {
+    //     this.globalData.push({
+    //       total_active_cases: data["active"],
+    //       total_cases: data["cases"],
+    //       total_deaths: data["deaths"],
+    //       total_new_cases_today: data["todayCases"],
+    //       total_new_deaths_today: data["todayDeaths"]
+    //     });
+    //   });
   }
 
   prepapareChat() {
