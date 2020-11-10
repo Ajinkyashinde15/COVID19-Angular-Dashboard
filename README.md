@@ -1,6 +1,6 @@
 # COVID-19 Angular Dashboard
 
-[![N|Solid](https://cldup.com/dTxpPi9lDf.thumb.png)](https://www.highcharts.com)
+[![N|Solid](https://github.com/Ajinkyashinde15/COVID19-Angular-Dashboard/blob/master/src/assets/highchart_icon.png?raw=true)](https://www.highcharts.com)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.3.
 
@@ -11,19 +11,19 @@ This project  gather data, make visualizations and perform analysis regarding th
 This project been divided into two sections. First is Dashboard, where you can see COVID 19 dashboards for World, India and Maharashtra state with most districts stat. And second section would be COVID 19 forcast, which represents prediction of corona cases for next 14 days. Covid world map is visual represnt of world map and you can hover any country and can see live covid 19 stat data. All application's screenshots and images are listed below.  
 
 #### COVID 19 Tracker World Map
-![COVID 19 Tracker World Map](http://url/to/img.png)
+![COVID 19 Tracker World Map](https://github.com/Ajinkyashinde15/COVID19-Angular-Dashboard/blob/master/src/assets/covidmap.png?raw=true)
 
 #### COVID 19 World Stat Part 1
-![COVID 19 World Stat part 1](http://url/to/img.png)
+![COVID 19 World Stat part 1](https://github.com/Ajinkyashinde15/COVID19-Angular-Dashboard/blob/master/src/assets/world1.png?raw=true)
 
 #### COVID 19 World Stat Part 2
-![COVID 19 World Stat part 2](http://url/to/img.png)
+![COVID 19 World Stat part 2](https://github.com/Ajinkyashinde15/COVID19-Angular-Dashboard/blob/master/src/assets/world2.PNG?raw=true)
 
 #### COVID 19 India Stat With All The States
-![COVID 19 India Stat with all the states](http://url/to/img.png)
+![COVID 19 India Stat with all the states](https://github.com/Ajinkyashinde15/COVID19-Angular-Dashboard/blob/master/src/assets/india1.png?raw=true)
 
 #### COVID 19 Next 2 Weeks Forcast for Selected Countries
-![COVID 19 Next 2 Weeks Forcast for Selected Countries](http://url/to/img.png)
+![COVID 19 Next 2 Weeks Forcast for Selected Countries](https://github.com/Ajinkyashinde15/COVID19-Angular-Dashboard/blob/master/src/assets/forcast.png?raw=true)
 
 ## Development server
 
